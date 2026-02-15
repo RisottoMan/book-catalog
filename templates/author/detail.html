@@ -7,7 +7,7 @@
 <body>
 	<h2>Информация об авторе</h2>
 	<p>Автор: {{ author.full_name }}</p>
-	<p>Дата рождения: {{ author.birth_date }}</p>
+	<p>Дата рождения: {{ author.birth_date|date:"d.m.Y" }}</p>
 
 	<p>
 		{% if book_list.count > 0 %}

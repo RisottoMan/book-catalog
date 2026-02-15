@@ -17,7 +17,7 @@ class BookListView(ListView):
     ordering = ["-created_at"]
 
     def get_queryset(self):
-        """Формирование запроса по GET-параметрам"""
+        """Формирование ответа по GET-параметрам"""
         queryset = super().get_queryset().select_related('genre', 'author')
         filters = Q()
 
