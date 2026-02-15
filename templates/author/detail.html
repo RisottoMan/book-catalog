@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ author.full_name }}</title>
+</head>
+<body>
+	<h2>Информация об авторе</h2>
+	<p>Автор: {{ author.full_name }}</p>
+	<p>Дата рождения: {{ author.birth_date }}</p>
+
+	<p>
+		{% if book_list.count > 0 %}
+			Список всех книг в каталоге:<br>
+
+			<ul>
+				{% for book in book_list %}
+					<li>{{ book.title }}</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<span style="color: #FF0000;">Книги не добавлены в каталог</span>
+		{% endif %}
+	</p>
+</body>
+</html>

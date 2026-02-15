@@ -1,4 +1,5 @@
 from django.db import models
+from slugify import slugify
 
 
 class Author(models.Model):
@@ -27,12 +28,12 @@ class Book(models.Model):
     author = models.ForeignKey(
         Author,
         on_delete=models.PROTECT,
-        related_name="books"
+        related_name="book"
     )
     genre = models.ForeignKey(
         Genre,
         on_delete=models.PROTECT,
-        related_name="books"
+        related_name="book"
     )
     quantity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -41,6 +42,12 @@ class Book(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        """Генерация slug на основе заголовка"""
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

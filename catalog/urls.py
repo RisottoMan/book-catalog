@@ -3,11 +3,13 @@ from . import views
 
 
 urlpatterns = [
-    path('books/', views.BookListView.as_view(), name='book_list'),
-    path('books/create/', '', name='book_create'),
-    path('books/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
-    path('books/<slug:slug>/update/', '', name='book_update'),
-    path('books/<slug:slug>/delete/', '', name='book_delete'),
+    # Book представления
+    path('book/', views.BookListView.as_view(), name='book_list'),
+    path('book/create/', views.BookCreateView.as_view(), name='book_create'),
+    path('book/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
+    path('book/<slug:slug>/update/', views.BookUpdateView.as_view(), name='book_update'),
+    path('book/<slug:slug>/delete/', views.BookDeleteView.as_view(), name='book_delete'),
 
-    path('authors/<slug:slug>/', '', name='author_detail'),
+    # Author представления
+    path('author/<int:pk>/', views.AuthorDetailView.as_view(), name='author_detail'),
 ]

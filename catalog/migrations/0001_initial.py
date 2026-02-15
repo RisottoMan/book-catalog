@@ -39,8 +39,8 @@ class Migration(migrations.Migration):
                 ('quantity', models.PositiveIntegerField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('is_read', models.BooleanField(default=False)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='books', to='catalog.author')),
-                ('genre', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='books', to='catalog.genre')),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='book', to='catalog.author')),
+                ('genre', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='book', to='catalog.genre')),
             ],
         ),
     ]
