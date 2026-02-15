@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ book.title }}</title>
+</head>
+<body>
+	<h1>{{ book.title }}</h1>
+	<p>Автор: {{ book.author }}</p>
+	<p>Жанр: {{ book.genre }}</p>
+	<p>Описание: {{ book.description }}</p>
+	<p>Книга содержит {{ book.quantity }} страниц</p>
+
+	<p>
+		Статус:
+		{% if book.is_read %}
+			✅ Прочитано
+		{% else %}
+			❌ Не прочитано
+		{% endif %}
+		<form method="post">
+			{% csrf_token %}
+			<button type="submit">
+				{% if book.is_read %}
+					Отметить как непрочитанное
+				{% else %}
+					Отметить как прочитанное
+				{% endif %}
+			</button>
+		</form>
+	</p>
+</body>
+</html>

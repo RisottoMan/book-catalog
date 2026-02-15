@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Каталог книг</title>
+</head>
+<body>
+	<h2>Список книг в каталоге:</h2>
+	<ul>
+		{% for book in book_list %}
+			<p>
+				Книга: {{ book.title }}<br>
+				Автор: {{ book.author }}<br>
+				Жанр: {{ book.genre }}<br>
+
+				{% if book.is_read %}
+					✅ Прочитано
+				{% else %}
+					❌ Не прочитано
+				{% endif %}
+			</p>
+		{% endfor %}
+	</ul>
+</body>
+</html>

@@ -5,6 +5,7 @@ class Author(models.Model):
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     birth_date = models.DateField(null=True, blank=True)
+    objects = models.Manager()
 
     def __str__(self):
         return f"{self.name} {self.surname}"
@@ -13,6 +14,7 @@ class Author(models.Model):
 class Genre(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, unique=True)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -35,6 +37,7 @@ class Book(models.Model):
     quantity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+    objects = models.Manager()
 
     class Meta:
         ordering = ['-created_at']
