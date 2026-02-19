@@ -12,7 +12,7 @@ class BookListView(ListView):
     """Представление для просмотра списка книг"""
     model = Book
     template_name = "book/list.html"
-    context_object_name = "book_list"
+    context_object_name = "books"
     paginate_by = 5
     ordering = ["-created_at"]
 
@@ -83,7 +83,7 @@ class BookDeleteView(DeleteView):
     """Представление для удаления книги"""
     model = Book
     template_name = "book/delete.html"
-    success_url = reverse_lazy("book_list")
+    success_url = reverse_lazy("books")
 
 
 class AuthorDetailView(DetailView):
@@ -99,6 +99,6 @@ class AuthorDetailView(DetailView):
         author = context["author"]
 
         author.full_name = f"{author.name} {author.surname}"
-        context["book_list"] = Book.objects.filter(author=author)
+        context["books"] = Book.objects.filter(author=author)
 
         return context
