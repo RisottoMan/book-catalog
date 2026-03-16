@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
 
-from .models import Author, Book
+from .models import Author, Book, Genre
 from .forms import BookForm
 
 
@@ -37,6 +37,12 @@ class BookListView(ListView):
                 filters &= Q(is_read=is_read)
 
         return queryset.filter(filters)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["genre_list"] = Genre.objects.all()
+        context["author_list"] = Author.objects.all()
+        return context
 
 
 class BookDetailView(DetailView):
