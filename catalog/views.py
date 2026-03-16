@@ -83,7 +83,7 @@ class BookDeleteView(DeleteView):
     """Представление для удаления книги"""
     model = Book
     template_name = "books/delete.html"
-    success_url = reverse_lazy("book_l")
+    success_url = reverse_lazy("book_list")
 
 
 class AuthorDetailView(DetailView):
