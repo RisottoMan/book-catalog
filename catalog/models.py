@@ -3,6 +3,7 @@ from slugify import slugify
 
 
 class Author(models.Model):
+    """Модель для определения авторов произведений"""
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     birth_date = models.DateField(null=True, blank=True)
@@ -13,6 +14,7 @@ class Author(models.Model):
 
 
 class Genre(models.Model):
+    """Модель для определения жанров произведений"""
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, unique=True)
     objects = models.Manager()
@@ -22,6 +24,7 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
+    """Модель для определения книги"""
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField()
