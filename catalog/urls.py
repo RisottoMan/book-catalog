@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # Book представления
-    path('books/', views.BookListView.as_view(), name='books'),
+    path('books/', views.BookListView.as_view(), name='book_list'),
     path('books/create/', views.BookCreateView.as_view(), name='book_create'),
     path('books/<slug:slug>/', views.BookDetailView.as_view(), name='book_detail'),
     path('books/<slug:slug>/update/', views.BookUpdateView.as_view(), name='book_update'),
