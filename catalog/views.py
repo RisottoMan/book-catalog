@@ -11,7 +11,7 @@ from .forms import BookForm
 class BookListView(ListView):
     """Представление для просмотра списка книг"""
     model = Book
-    template_name = "book/list.html"
+    template_name = "books/list.html"
     context_object_name = "book_list"
     paginate_by = 5
     ordering = ["-created_at"]
@@ -42,7 +42,7 @@ class BookListView(ListView):
 class BookDetailView(DetailView):
     """Представление для просмотра одной книги"""
     model = Book
-    template_name = "book/detail.html"
+    template_name = "books/detail.html"
     context_object_name = "book"
     slug_field = "slug"
     slug_url_kwarg = "slug"
@@ -61,7 +61,7 @@ class BookCreateView(CreateView):
     """Представление для создания книги"""
     model = Book
     form_class = BookForm
-    template_name = "book/create.html"
+    template_name = "books/create.html"
 
     def get_success_url(self):
         """Перенаправление после успешного сохранения"""
@@ -72,7 +72,7 @@ class BookUpdateView(UpdateView):
     """Представление для обновления книги"""
     model = Book
     form_class = BookForm
-    template_name = "book/update.html"
+    template_name = "books/update.html"
 
     def get_success_url(self):
         """Перенаправление после успешного сохранения"""
@@ -82,14 +82,14 @@ class BookUpdateView(UpdateView):
 class BookDeleteView(DeleteView):
     """Представление для удаления книги"""
     model = Book
-    template_name = "book/delete.html"
+    template_name = "books/delete.html"
     success_url = reverse_lazy("book_list")
 
 
 class AuthorDetailView(DetailView):
     """Представление для просмотра автора и всех его книг"""
     model = Author
-    template_name = "author/detail.html"
+    template_name = "authors/detail.html"
     context_object_name = "author"
     pk_url_kwarg = "pk"
 
