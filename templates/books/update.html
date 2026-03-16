@@ -1,16 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Обновление книги</title>
-</head>
-<body>
-	<h2>Обновление книги в каталоге:</h2>
+{% extends 'base.html' %}
 
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Обновить</button>
-	</form>
-</body>
-</html>
+{% block title %}Обновление книги{% endblock %}
+
+{% block content %}
+
+<a class="back" href="{% url 'book_detail' object.slug %}">
+← Назад
+</a>
+
+<h2>Обновление книги</h2>
+
+<form method="post" class="form">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button class="btn edit" type="submit">
+Сохранить изменения
+</button>
+
+</form>
+
+{% endblock %}

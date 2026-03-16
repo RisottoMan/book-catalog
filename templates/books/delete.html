@@ -1,18 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Удаление книги</title>
-</head>
-<body>
-	<h2>Удаление книги из каталога:</h2>
+{% extends 'base.html' %}
 
-	<form method="post">
-		{% csrf_token %}
-		<p style="color: #FF0000;">
-			Вы уверены, что хотите удалить книгу "{{ book.title }}"?
-		</p>
-		<button type="submit">Удалить</button>
-	</form>
-</body>
-</html>
+{% block title %}Удаление книги{% endblock %}
+
+{% block content %}
+
+<a class="back" href="{% url 'book_detail' object.slug %}">
+← Назад
+</a>
+
+<h2>Удаление книги</h2>
+
+<div class="delete-box">
+
+<p class="warning">
+Вы уверены, что хотите удалить книгу
+<b>"{{ object.title }}"</b>?
+</p>
+
+<form method="post">
+
+{% csrf_token %}
+
+<button class="btn delete" type="submit">
+Удалить
+</button>
+
+<a class="btn reset"
+href="{% url 'book_detail' object.slug %}">
+Отмена
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

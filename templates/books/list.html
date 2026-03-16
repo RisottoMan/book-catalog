@@ -1,25 +1,225 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Каталог книг</title>
-</head>
-<body>
-	<h2>Список книг в каталоге:</h2>
-	<ul>
-		{% for book in book_list %}
-			<p>
-				Книга: {{ book.title }}<br>
-				Автор: {{ book.author }}<br>
-				Жанр: {{ book.genre }}<br>
+{% extends 'base.html' %}
 
-				{% if book.is_read %}
-					✅ Прочитано
-				{% else %}
-					❌ Не прочитано
-				{% endif %}
-			</p>
-		{% endfor %}
-	</ul>
-</body>
-</html>
+{% block title %}Каталог книг{% endblock %}
+
+
+{% block sidebar %}
+<aside class="sidebar">
+
+<h3>Фильтры</h3>
+
+<form method="get">
+
+<!-- Жанры -->
+
+<div class="filter">
+
+<button type="button" onclick="toggleFilter('genres')">
+Жанры
+</button>
+
+<div id="genres" class="filter-list">
+
+{% for genre in genre_list %}
+
+<label>
+<input
+type="radio"
+name="genre"
+value="{{ genre.slug }}"
+{% if request.GET.genre == genre.slug %}checked{% endif %}
+>
+{{ genre.name }}
+</label>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+
+<!-- Авторы -->
+
+<div class="filter">
+
+<button type="button" onclick="toggleFilter('authors')">
+Авторы
+</button>
+
+<div id="authors" class="filter-list">
+
+{% for author in author_list %}
+
+<label>
+<input
+type="radio"
+name="author"
+value="{{ author.id }}"
+{% if request.GET.author == author.id|stringformat:"s" %}checked{% endif %}
+>
+{{ author }}
+</label>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+
+<!-- Статус -->
+
+<div class="filter">
+
+<button type="button" onclick="toggleFilter('status')">
+Статус чтения
+</button>
+
+<div id="status" class="filter-list">
+
+<label>
+<input
+type="radio"
+name="read"
+value="true"
+{% if request.GET.read == "true" %}checked{% endif %}
+>
+Прочитано
+</label>
+
+<label>
+<input
+type="radio"
+name="read"
+value="false"
+{% if request.GET.read == "false" %}checked{% endif %}
+>
+Не прочитано
+</label>
+
+</div>
+
+</div>
+
+
+<button class="btn" type="submit">
+Применить
+</button>
+
+<a class="btn reset" href="{% url 'book_list' %}">
+Сбросить
+</a>
+
+</form>
+
+</aside>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="top-panel">
+
+<h2>Мои книги</h2>
+
+<a class="btn add" href="{% url 'book_create' %}">
+➕ Добавить книгу
+</a>
+
+</div>
+
+
+<div class="books">
+
+{% for book in book_list %}
+
+<div class="book-card">
+
+<a class="card-link"
+href="{% url 'book_detail' book.slug %}">
+
+<h3>{{ book.title }}</h3>
+
+<p>
+Автор:
+{{ book.author }}
+</p>
+
+<p>
+Жанр:
+{{ book.genre }}
+</p>
+
+{% if book.is_read %}
+<span class="status read">Прочитано</span>
+{% else %}
+<span class="status unread">Не прочитано</span>
+{% endif %}
+
+</a>
+
+
+<div class="card-actions">
+
+<a class="btn small edit"
+href="{% url 'book_update' book.slug %}">
+✏ Редактировать
+</a>
+
+<a class="btn small delete"
+href="{% url 'book_delete' book.slug %}">
+🗑 Удалить
+</a>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p>Книги не найдены.</p>
+
+{% endfor %}
+
+</div>
+
+
+<!-- Пагинация -->
+
+<div class="pagination">
+
+{% if page_obj.has_previous %}
+<a href="?page={{ page_obj.previous_page_number }}">←</a>
+{% endif %}
+
+<span>
+Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+</span>
+
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">→</a>
+{% endif %}
+
+</div>
+
+
+<script>
+
+function toggleFilter(id)
+{
+let el = document.getElementById(id)
+
+if (el.style.display === "block")
+{
+el.style.display = "none"
+}
+else
+{
+el.style.display = "block"
+}
+}
+
+</script>
+
+{% endblock %}

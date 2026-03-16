@@ -1,33 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>{{ book.title }}</title>
-</head>
-<body>
-	<h1>{{ book.title }}</h1>
-	<p>Автор: {{ book.author }}</p>
-	<p>Жанр: {{ book.genre }}</p>
-	<p>Описание: {{ book.description }}</p>
-	<p>Книга содержит {{ book.quantity }} страниц</p>
+{% extends 'base.html' %}
 
-	<p>
-		Статус:
-		{% if book.is_read %}
-			✅ Прочитано
-		{% else %}
-			❌ Не прочитано
-		{% endif %}
-		<form method="post">
-			{% csrf_token %}
-			<button type="submit">
-				{% if book.is_read %}
-					Отметить как непрочитанное
-				{% else %}
-					Отметить как прочитанное
-				{% endif %}
-			</button>
-		</form>
-	</p>
-</body>
-</html>
+{% block content %}
+
+<a class="back" href="{% url 'book_list' %}">← Назад</a>
+
+<div class="book-detail">
+
+<h2>{{ book.title }}</h2>
+
+<p>
+Автор:
+<a href="{% url 'author_detail' book.author.id %}">
+{{ book.author }}
+</a>
+</p>
+
+<p>Жанр: {{ book.genre }}</p>
+
+<p>{{ book.description }}</p>
+
+<p>Страниц: {{ book.quantity }}</p>
+
+
+<p>
+Статус:
+
+{% if book.is_read %}
+<span class="status read">Прочитано</span>
+{% else %}
+<span class="status unread">Не прочитано</span>
+{% endif %}
+
+</p>
+
+<form method="post">
+{% csrf_token %}
+<button class="btn" type="submit">
+
+{% if book.is_read %}
+Отметить как непрочитанное
+{% else %}
+Отметить как прочитанное
+{% endif %}
+
+</button>
+</form>
+
+</div>
+
+{% endblock %}
